@@ -29,13 +29,7 @@ object Task2_3 extends Serializable {
     val dataTest_xgb = spark.read.option("header", "true").csv(testFileName).rdd
       .map(r => (r.getAs[String]("user_id"), r.getAs[String]("business_id"))).cache()
 
-   // val userData = spark.read.option("mode", "DROPMALFORMED").json(s"$trainFileName/user.json").rdd
-   //   .map(r => (r.getAs[String]("user_id"), (r.getAs[Long]("review_count").toDouble, r.getAs[Double]("average_stars"),
-   //     r.getAs[Long]("useful").toDouble, r.getAs[Long]("fans").toDouble))).cache()
-
-    //val businessData = spark.read.option("mode", "DROPMALFORMED").json(s"$trainFileName/business.json").rdd
-     // .map(r => (r.getAs[String]("business_id"), (r.getAs[Long]("review_count").toDouble, r.getAs[Double]("stars")))).cache()
-     val userData = spark.read.json(s"$trainFileName/user.json").rdd
+    val userData = spark.read.json(s"$trainFileName/user.json").rdd
        .map(r => (r.getAs[String]("user_id"), (r.getAs[Long]("review_count").toDouble, r.getAs[Double]("average_stars"),
          r.getAs[Long]("useful").toDouble, r.getAs[Long]("fans").toDouble))).cache()
 
